@@ -4,8 +4,9 @@ class mazeSolver
 {
 	public:
 		mazeSolver(const vector<vector<char>>& maze);
-		void deepCopy(const vector<vector<char>>& rhsMaze);
-		int shortestPath();
+		void printMaze();
+		char* findStart();
+		int shortestPath(int row, int col);
 
 	private:
 		vector<vector<char>> maze;

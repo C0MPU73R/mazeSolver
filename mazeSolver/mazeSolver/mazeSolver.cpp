@@ -1,19 +1,23 @@
 #include "mazeSolver.h"
-
+#include <iostream>
+using namespace std;
 mazeSolver::mazeSolver(const vector<vector<char>>& rhsMaze)
 {
-	deepCopy(rhsMaze);
+	sP = 0;
+	this->maze = rhsMaze;
 }
-
-void mazeSolver::deepCopy(const vector<vector<char>>& rhsMaze)
+void mazeSolver::printMaze()
 {
-	for (int i = 0; i < rhsMaze.size(); i++)
+	for (int index = 0; index < maze.size(); index++)
 	{
-			this->maze.push_back(rhsMaze[i]);	
+		for (int index2 = 0; index2 < maze[index].size(); index2++)
+		{
+			cout << maze[index][index2];
+		}
+		cout << endl;
 	}
 }
-
-int mazeSolver::shortestPath()
+char* mazeSolver::findStart()
 {
 	//find s
 	sP = &maze[0][0];
@@ -25,13 +29,43 @@ int mazeSolver::shortestPath()
 			{
 				break;
 			}
-			else
-			{
-				sP = &maze[i][j];
-			}
+			sP = &maze[i][j];
 		}
 	}
-	//check up, down, left, right
-
+	return sP;
 }
+int mazeSolver::shortestPath(int row, int col)
+{
+	//check up, down, left, right
+	if (maze[row - 1][col] == 'O')
+	{
+		maze[row - 1][col] = maze[row][col]; //s moved up
+		maze[row][col] = ' ';
+		shortestPath(row - 1, col); //pass in new pos of s
+
+	}
+
+	if (maze[row + 1][col] == 'O')
+	{
+		maze[row + 1][col] = maze[row][col]; //s moved down
+		maze[row][col] = ' ';
+		shortestPath(row + 1, col);
+	}
+
+	if (maze[row][col - 1] == 'O')
+	{
+		maze[row][col - 1] = maze[row][col]; //s moved left
+		maze[row][col] = ' ';
+		shortestPath(row, col - 1);
+	}
+
+	if (maze[row][col + 1] == 'O')
+	{
+		maze[row][col + 1] = maze[row][col]; //s moved right
+		maze[row][col] = ' ';
+		shortestPath(row, col + 1);
+
+	}
+}
+
 
