@@ -3,10 +3,9 @@
 using namespace std;
 mazeSolver::mazeSolver(const vector<vector<char>>& rhsMaze)
 {
-	sP = 0;
 	this->maze = rhsMaze;
 	counter = 0;
-	max = 0;
+	min = INT_MAX;
 }
 void mazeSolver::printMaze()
 {
@@ -19,87 +18,116 @@ void mazeSolver::printMaze()
 		cout << endl;
 	}
 }
-char* mazeSolver::findStart()
+int mazeSolver::findStartX()
 {
-	//find s
-	sP = &maze[0][0];
-	for (int i = 0; i < maze.size(); i++)
+	int x = -1; //returns -1 if not found
+	//rewritten
+	for (int index = 0; index < maze.size(); index++)
 	{
-		for (int j = 0; i < maze[i].size(); j++)
+		for (int index2 = 0; index2 < maze[index].size(); index2++)
 		{
-			if (*sP == 'S')
+			if (maze[index][index2] == 'S')
 			{
+				x = index;
 				break;
 			}
-			sP = &maze[i][j];
 		}
 	}
-	return sP;
+	return x;
+}
+int mazeSolver::findStartY()
+{
+	int y = -1;
+	//rewritten
+	for (int index = 0; index < maze.size(); index++)
+	{
+		for (int index2 = 0; index2 < maze[index].size(); index2++)
+		{
+			if (maze[index][index2] == 'S')
+			{
+				y = index2;
+				break;
+			}
+		}
+	}
+	return y;
 }
 int mazeSolver::shortestPath(int row, int col)
 {
 	//check up, down, left, right
-	if (maze[row - 1][col] == 'O')
+	if (row - 1 >= 0)
 	{
-		maze[row - 1][col] = maze[row][col]; //s moved up
-		maze[row][col] = ' ';
-		shortestPath(row - 1, col); //pass in new pos of s
-		counter++; //increment once
-		if (counter > max)
+		if (maze[row - 1][col] == 'O' || maze[row - 1][col] == 'E') // check up
 		{
-			max = counter;
+			maze[row - 1][col] = maze[row][col]; //s moved up
+			maze[row][col] = ' ';
+			shortestPath(row - 1, col); //pass in new pos of s
+			counter++; //increment once
+			if (counter < min)
+			{
+				min = counter;
+			}
+			//put back
+			
+			maze[row][col] = 'S';
+			counter--; //decrement once
 		}
-		//put back
-		maze[row - 1][col] = 'O';
-		maze[row][col] = 'S';
-		counter--; //decrement once
 	}
-
-	if (maze[row + 1][col] == 'O')
+	if (row + 1 <= maze[0].size() - 1)
 	{
-		maze[row + 1][col] = maze[row][col]; //s moved down
-		maze[row][col] = ' ';
-		counter++;
-		if (counter > max)
-		{
-			max = counter;
-		}
-		shortestPath(row + 1, col);
-		maze[row + 1][col] = 'O';
-		maze[row][col] = 'S';
-		counter--;
-	}
 
-	if (maze[row][col - 1] == 'O')
+
+		if (maze[row + 1][col] == 'O') //check down, all rows are same size PER matrix
+		{
+			maze[row + 1][col] = maze[row][col]; //s moved down
+			maze[row][col] = ' ';
+			counter++;
+			if (counter < min)
+			{
+				min = counter;
+			}
+			shortestPath(row + 1, col);
+			maze[row + 1][col] = 'O';
+			maze[row][col] = 'S';
+			counter--;
+		}
+	}
+	if (col - 1 >= 0)
 	{
-		maze[row][col - 1] = maze[row][col]; //s moved left
-		maze[row][col] = ' ';
-		counter++;
-		if (counter > max)
+		if (maze[row][col - 1] == 'O') //check left
 		{
-			max = counter;
+			maze[row][col - 1] = maze[row][col]; //s moved left
+			maze[row][col] = ' ';
+			counter++;
+			if (counter < min)
+			{
+				min = counter;
+			}
+			shortestPath(row, col - 1);
+			maze[row][col - 1] = 'O';
+			maze[row][col] = 'S';
+			counter--;
 		}
-		shortestPath(row, col - 1);
-		maze[row][col - 1] = 'O';
-		maze[row][col] = 'S';
-		counter--;
 	}
-
-	if (maze[row][col + 1] == 'O')
+	if (col + 1 <= maze.size() - 1)
 	{
-		maze[row][col + 1] = maze[row][col]; //s moved right
-		maze[row][col] = ' ';
-		counter++;
-		if (counter > max)
+		if (maze[row][col + 1] == 'O')
 		{
-			max = counter;
-		}
-		shortestPath(row, col + 1);
-		maze[row][col + 1] = 'O';
-		maze[row][col] = 'S';
-		counter--;
+			maze[row][col + 1] = maze[row][col]; //s moved right
+			maze[row][col] = ' ';
+			counter++;
+			if (counter < min)
+			{
+				min = counter;
+			}
+			shortestPath(row, col + 1);
+			maze[row][col + 1] = 'O';
+			maze[row][col] = 'S';
+			counter--;
 
+		}
 	}
+	return min;
 }
 
 
