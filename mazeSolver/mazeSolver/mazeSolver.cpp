@@ -42,6 +42,9 @@ int mazeSolver::shortestPath(int row, int col)
 		maze[row - 1][col] = maze[row][col]; //s moved up
 		maze[row][col] = ' ';
 		shortestPath(row - 1, col); //pass in new pos of s
+		//put back
+		maze[row - 1][col] = 'O';
+		maze[row][col] = 'S';
 
 	}
 
@@ -50,6 +53,8 @@ int mazeSolver::shortestPath(int row, int col)
 		maze[row + 1][col] = maze[row][col]; //s moved down
 		maze[row][col] = ' ';
 		shortestPath(row + 1, col);
+		maze[row + 1][col] = 'O';
+		maze[row][col] = 'S';
 	}
 
 	if (maze[row][col - 1] == 'O')
@@ -57,6 +62,8 @@ int mazeSolver::shortestPath(int row, int col)
 		maze[row][col - 1] = maze[row][col]; //s moved left
 		maze[row][col] = ' ';
 		shortestPath(row, col - 1);
+		maze[row][col - 1] = 'O';
+		maze[row][col] = 'S';
 	}
 
 	if (maze[row][col + 1] == 'O')
@@ -64,6 +71,8 @@ int mazeSolver::shortestPath(int row, int col)
 		maze[row][col + 1] = maze[row][col]; //s moved right
 		maze[row][col] = ' ';
 		shortestPath(row, col + 1);
+		maze[row][col + 1] = 'O';
+		maze[row][col] = 'S';
 
 	}
 }

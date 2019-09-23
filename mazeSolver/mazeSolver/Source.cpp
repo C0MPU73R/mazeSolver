@@ -3,7 +3,7 @@
 using namespace std;
 int main()
 {
-	vector<vector<char>> maze;
+	vector<vector<char>> mazeFromFile;
 
 
 
