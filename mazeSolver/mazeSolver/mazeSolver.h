@@ -8,7 +8,6 @@ class mazeSolver
 		int findStartX();
 		int findStartY();
 		int shortestPath(int row, int col);
-
 	private:
 		vector<vector<char>> maze;
 		int counter;

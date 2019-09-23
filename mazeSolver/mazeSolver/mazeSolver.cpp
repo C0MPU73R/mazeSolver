@@ -21,7 +21,6 @@ void mazeSolver::printMaze()
 int mazeSolver::findStartX()
 {
 	int x = -1; //returns -1 if not found
-	//rewritten
 	for (int index = 0; index < maze.size(); index++)
 	{
 		for (int index2 = 0; index2 < maze[index].size(); index2++)
@@ -29,16 +28,16 @@ int mazeSolver::findStartX()
 			if (maze[index][index2] == 'S')
 			{
 				x = index;
-				break;
+				goto end;
 			}
 		}
 	}
+	end:
 	return x;
 }
 int mazeSolver::findStartY()
 {
 	int y = -1;
-	//rewritten
 	for (int index = 0; index < maze.size(); index++)
 	{
 		for (int index2 = 0; index2 < maze[index].size(); index2++)
@@ -46,49 +45,45 @@ int mazeSolver::findStartY()
 			if (maze[index][index2] == 'S')
 			{
 				y = index2;
-				break;
+				goto end;
 			}
 		}
 	}
+	end:
 	return y;
 }
-int mazeSolver::shortestPath(int row, int col)
+int mazeSolver::shortestPath(int row, int col) //edit: keep s where its at, have one base case
 {
+	if (maze[row][col] == 'E')
+	{
+		if (min > counter)
+		{
+			min = counter;
+		}
+		return min;
+	}
+
 	//check up, down, left, right
 	if (row - 1 >= 0)
 	{
-		if (maze[row - 1][col] == 'O' || maze[row - 1][col] == 'E') // check up
+		if (maze[row - 1][col] == 'O') // check up
 		{
-			maze[row - 1][col] = maze[row][col]; //s moved up
-			maze[row][col] = ' ';
-			shortestPath(row - 1, col); //pass in new pos of s
+			maze[row - 1][col] = 'X';
 			counter++; //increment once
-			if (counter < min)
-			{
-				min = counter;
-			}
+			shortestPath(row - 1, col);
 			//put back
-			
-			maze[row][col] = 'S';
+			maze[row - 1][col] = 'O';
 			counter--; //decrement once
 		}
 	}
-	if (row + 1 <= maze[0].size() - 1)
+	if (row + 1 <= maze.size() - 1)
 	{
-
-
 		if (maze[row + 1][col] == 'O') //check down, all rows are same size PER matrix
 		{
-			maze[row + 1][col] = maze[row][col]; //s moved down
-			maze[row][col] = ' ';
+			maze[row + 1][col] = 'X';
 			counter++;
-			if (counter < min)
-			{
-				min = counter;
-			}
 			shortestPath(row + 1, col);
 			maze[row + 1][col] = 'O';
-			maze[row][col] = 'S';
 			counter--;
 		}
 	}
@@ -96,38 +91,24 @@ int mazeSolver::shortestPath(int row, int col)
 	{
 		if (maze[row][col - 1] == 'O') //check left
 		{
-			maze[row][col - 1] = maze[row][col]; //s moved left
-			maze[row][col] = ' ';
+			maze[row][col - 1] = 'X';
 			counter++;
-			if (counter < min)
-			{
-				min = counter;
-			}
 			shortestPath(row, col - 1);
 			maze[row][col - 1] = 'O';
-			maze[row][col] = 'S';
 			counter--;
 		}
 	}
-	if (col + 1 <= maze.size() - 1)
+	if (col + 1 <= maze[row].size() - 1)
 	{
 		if (maze[row][col + 1] == 'O')
 		{
-			maze[row][col + 1] = maze[row][col]; //s moved right
-			maze[row][col] = ' ';
+			maze[row][col + 1] = 'X';
 			counter++;
-			if (counter < min)
-			{
-				min = counter;
-			}
 			shortestPath(row, col + 1);
 			maze[row][col + 1] = 'O';
-			maze[row][col] = 'S';
 			counter--;
-
 		}
 	}
-	return min;
 }
 
 
