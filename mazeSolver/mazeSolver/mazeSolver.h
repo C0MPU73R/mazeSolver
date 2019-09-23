@@ -11,4 +11,6 @@ class mazeSolver
 	private:
 		vector<vector<char>> maze;
 		char* sP;
+		int counter;
+		int max;
 };
