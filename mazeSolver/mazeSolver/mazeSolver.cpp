@@ -5,7 +5,7 @@ mazeSolver::mazeSolver(const vector<vector<char>>& rhsMaze)
 {
 	this->maze = rhsMaze;
 	counter = 0;
-	min = INT_MAX;
+	min = 0;
 }
 void mazeSolver::printMaze()
 {
@@ -52,11 +52,11 @@ int mazeSolver::findStartY()
 	end:
 	return y;
 }
-int mazeSolver::shortestPath(int row, int col) //edit: keep s where its at, have one base case
+int mazeSolver::shortestPath(int row, int col) 
 {
-	if (maze[row][col] == 'E')
+	if (maze[row][col] == 'E') //base case
 	{
-		if (min > counter)
+		if (counter > min)
 		{
 			min = counter;
 		}

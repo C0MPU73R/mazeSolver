@@ -10,7 +10,8 @@ int main()
 	int startXLoc = a.findStartX();
 	int startYLoc = a.findStartY();
 	int min = a.shortestPath(startXLoc, startYLoc);
-	cout << min;
+	cout << min << endl;
+	a.printMaze();
 
 
 
