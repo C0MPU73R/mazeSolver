@@ -3,8 +3,8 @@
 using namespace std;
 int main()
 {
-	vector<vector<char>> mazeFromFile = {{ 'S', 'W', 'W', 'W' },
-										  {'O', 'W', 'W', 'W' } ,
+	vector<vector<char>> mazeFromFile = {{ 'W', 'W', 'W', 'W' },
+										  {'S', 'W', 'W', 'W' } ,
 										  {'O', 'W', 'W', 'W' },
 										  {'E', 'W', 'W', 'W'} };
 	mazeSolver a(mazeFromFile);

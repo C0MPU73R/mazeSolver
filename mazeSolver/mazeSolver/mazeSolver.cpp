@@ -5,7 +5,7 @@ mazeSolver::mazeSolver(const vector<vector<char>>& rhsMaze)
 {
 	this->maze = rhsMaze;
 	counter = 0;
-	min = 0;
+	min = INT_MAX;
 }
 void mazeSolver::printMaze()
 {
@@ -54,11 +54,13 @@ int mazeSolver::findStartY()
 }
 int mazeSolver::shortestPath(int row, int col) 
 {
-	if (maze[row][col] == 'E')
+	if (maze[row][col] == 'E') //reached end
 	{
-		return counter; //test to return max jumps
+		if (min > counter)
+		{
+			min = counter;
+		}
 	}
-	
 	maze[row][col] = 'X';
 	//check up, down, left, right
 	if (row - 1 >= 0) // check up
@@ -70,7 +72,6 @@ int mazeSolver::shortestPath(int row, int col)
 			counter--; //decrement once
 		}
 	}
-
 	if (row + 1 <= maze.size() - 1) //check down
 	{
 		if (maze[row + 1][col] == 'O' || maze[row+1][col] == 'E')
@@ -98,9 +99,9 @@ int mazeSolver::shortestPath(int row, int col)
 			counter--;
 		}
 	}
-
 	//put back
 	maze[row][col] = 'O';
+	return min;
 }
 
 
