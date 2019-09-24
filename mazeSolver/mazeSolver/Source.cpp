@@ -5,6 +5,7 @@ int main()
 {
 	vector<vector<char>> mazeFromFile = {{ 'S', 'W', 'W', 'W' },
 										  {'O', 'W', 'W', 'W' } ,
+										  {'O', 'W', 'W', 'W' },
 										  {'E', 'W', 'W', 'W'} };
 	mazeSolver a(mazeFromFile);
 	int startXLoc = a.findStartX();

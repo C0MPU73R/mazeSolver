@@ -54,19 +54,14 @@ int mazeSolver::findStartY()
 }
 int mazeSolver::shortestPath(int row, int col) 
 {
-	if (maze[row][col] == 'E') //base case
+	if (maze[row][col] == 'E')
 	{
-		if (counter > min)
-		{
-			min = counter;
-		}
-		return min;
+		return counter; //test to return max jumps
 	}
-
 	//check up, down, left, right
-	if (row - 1 >= 0)
+	if (row - 1 >= 0) // check up
 	{
-		if (maze[row - 1][col] == 'O') // check up
+		if (maze[row - 1][col] == 'O') 
 		{
 			maze[row - 1][col] = 'X';
 			counter++; //increment once
@@ -75,8 +70,19 @@ int mazeSolver::shortestPath(int row, int col)
 			maze[row - 1][col] = 'O';
 			counter--; //decrement once
 		}
+
+		if (maze[row - 1][col] == 'E')
+		{
+			maze[row - 1][col] = 'X';
+			counter++; //increment once
+			shortestPath(row, col);
+			//put back
+			maze[row - 1][col] = 'E';
+			counter--; //decrement once
+		}
 	}
-	if (row + 1 <= maze.size() - 1)
+
+	if (row + 1 <= maze.size() - 1) //check down
 	{
 		if (maze[row + 1][col] == 'O') //check down, all rows are same size PER matrix
 		{
@@ -86,8 +92,17 @@ int mazeSolver::shortestPath(int row, int col)
 			maze[row + 1][col] = 'O';
 			counter--;
 		}
+		if (maze[row + 1][col] == 'E')
+		{
+			maze[row + 1][col] = 'X';
+			counter++; //increment once
+			shortestPath(row, col);
+			//put back
+			maze[row + 1][col] = 'E';
+			counter--; //decrement once
+		}
 	}
-	if (col - 1 >= 0)
+	if (col - 1 >= 0) //check left
 	{
 		if (maze[row][col - 1] == 'O') //check left
 		{
@@ -97,8 +112,17 @@ int mazeSolver::shortestPath(int row, int col)
 			maze[row][col - 1] = 'O';
 			counter--;
 		}
+		if (maze[row][col - 1] == 'E')
+		{
+			maze[row][col - 1] = 'X';
+			counter++; //increment once
+			shortestPath(row, col);
+			//put back
+			maze[row][col - 1] = 'E';
+			counter--; //decrement once
+		}
 	}
-	if (col + 1 <= maze[row].size() - 1)
+	if (col + 1 <= maze[row].size() - 1) //check right
 	{
 		if (maze[row][col + 1] == 'O')
 		{
@@ -107,6 +131,15 @@ int mazeSolver::shortestPath(int row, int col)
 			shortestPath(row, col + 1);
 			maze[row][col + 1] = 'O';
 			counter--;
+		}
+		if (maze[row][col + 1] == 'E')
+		{
+			maze[row][col + 1] = 'X';
+			counter++; //increment once
+			shortestPath(row, col);
+			//put back
+			maze[row][col + 1] = 'E';
+			counter--; //decrement once
 		}
 	}
 }
