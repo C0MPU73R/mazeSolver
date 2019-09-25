@@ -60,8 +60,15 @@ int mazeSolver::shortestPath(int row, int col)
 		{
 			min = counter;
 		}
+		return min;
+		
 	}
-	maze[row][col] = 'X';
+	if (maze[row][col] == 'O')
+	{
+		maze[row][col] = 'X';
+	}
+	printMaze();
+	cout << endl;
 	//check up, down, left, right
 	if (row - 1 >= 0) // check up
 	{
@@ -70,6 +77,8 @@ int mazeSolver::shortestPath(int row, int col)
 			counter++; //increment once
 			shortestPath(row - 1, col);
 			counter--; //decrement once
+			printMaze();
+			cout << endl;
 		}
 	}
 	if (row + 1 <= maze.size() - 1) //check down
@@ -79,6 +88,8 @@ int mazeSolver::shortestPath(int row, int col)
 			counter++;
 			shortestPath(row + 1, col);
 			counter--;
+			printMaze();
+			cout << endl;
 		}
 	}
 	if (col - 1 >= 0) //check left
@@ -88,6 +99,8 @@ int mazeSolver::shortestPath(int row, int col)
 			counter++;
 			shortestPath(row, col - 1);
 			counter--;
+			printMaze();
+			cout << endl;
 		}
 	}
 	if (col + 1 <= maze[row].size() - 1) //check right
@@ -97,11 +110,18 @@ int mazeSolver::shortestPath(int row, int col)
 			counter++;
 			shortestPath(row, col + 1);
 			counter--;
+			printMaze();
+			cout << endl;
 		}
 	}
 	//put back
-	maze[row][col] = 'O';
-	return min;
+	if (maze[row][col] == 'X')
+	{
+		maze[row][col] = 'O';
+	}
+	printMaze();
+	cout << endl;
+	
 }
 
 
