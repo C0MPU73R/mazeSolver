@@ -5,7 +5,6 @@ D:\GitHub\mazeSolver\mazeSolver\mazeSolver\mazeSolver.cpp(24,28): warning C4018:
 D:\GitHub\mazeSolver\mazeSolver\mazeSolver\mazeSolver.cpp(26,31): warning C4018:  '<': signed/unsigned mismatch
 D:\GitHub\mazeSolver\mazeSolver\mazeSolver\mazeSolver.cpp(41,28): warning C4018:  '<': signed/unsigned mismatch
 D:\GitHub\mazeSolver\mazeSolver\mazeSolver\mazeSolver.cpp(43,31): warning C4018:  '<': signed/unsigned mismatch
-D:\GitHub\mazeSolver\mazeSolver\mazeSolver\mazeSolver.cpp(84,14): warning C4018:  '<=': signed/unsigned mismatch
-D:\GitHub\mazeSolver\mazeSolver\mazeSolver\mazeSolver.cpp(108,14): warning C4018:  '<=': signed/unsigned mismatch
-D:\GitHub\mazeSolver\mazeSolver\mazeSolver\mazeSolver.cpp(127): warning C4715:  'mazeSolver::shortestPath': not all control paths return a value
+D:\GitHub\mazeSolver\mazeSolver\mazeSolver\mazeSolver.cpp(82,14): warning C4018:  '<=': signed/unsigned mismatch
+D:\GitHub\mazeSolver\mazeSolver\mazeSolver\mazeSolver.cpp(104,14): warning C4018:  '<=': signed/unsigned mismatch
   mazeSolver.vcxproj -> D:\GitHub\mazeSolver\mazeSolver\Debug\mazeSolver.exe
