@@ -6,23 +6,24 @@ using namespace std;
 int main()
 {
 	vector<string> linesFromFile;
-	ifstream file;
-	string fileName;
-	cout << "Enter file name: ";
-	cin >> fileName;
-	file.open(fileName);
-	if (file.is_open())
+	ifstream infile;
+	string line;
+	//cout << "Enter file name: ";
+	//cin >> fileName;
+	infile.open("maze1.txt");
+	if (infile.is_open())
 	{
-		while (!file.eof())
+		while (!infile.eof())
 		{
-			getline(file, fileName);
-			linesFromFile.push_back(fileName);
+			getline(infile, line);
+			linesFromFile.push_back(line);
 		}
+	infile.close();
 	}
-	file.close();
-	for (int index = 0; index < linesFromFile.size(); index++)
+	
+	else
 	{
-		cout << linesFromFile[index] << endl;
+		cout << "Cannot open file";
 	}
 	//test
 
